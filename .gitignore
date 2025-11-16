@@ -2,3 +2,5 @@ venv
 .env
 Artifacts/
 logs/
+final_models/
+mlruns/

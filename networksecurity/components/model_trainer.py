@@ -21,7 +21,19 @@ from networksecurity.utils.ml_utils.model.estimator import NetworkModel
 from networksecurity.utils.main_utils.utils import save_object,load_object
 from networksecurity.utils.main_utils.utils import load_numpy_array_data,evaluate_models
 from networksecurity.utils.ml_utils.metric.classification_metric import get_classification_score
+# os.environ["MLFLOW_TRACKING_USERNAME"] = "sahasra15082005"
+# os.environ["MLFLOW_TRACKING_PASSWORD"] = "30d9975254b3753864cfe84bf50a5a52675974c0"
+
 import mlflow 
+# import dagshub
+# dagshub.init(repo_owner='sahasra15082005', repo_name='networksecurity')
+# mlflow.set_tracking_uri("https://dagshub.com/sahasra15082005/networksecurity.mlflow")
+
+
+
+
+
+
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,data_transformation_artifact:DataTransformationArtifact):
         try:
@@ -102,6 +114,7 @@ class ModelTrainer:
         Network_model=NetworkModel(preprocessor=preprocessor,model=best_model)
         save_object(self.model_trainer_config.trained_model_file_path,
                     obj=Network_model)
+        save_object("final_model/model.pkl",best_model)
         model_trainer_artifact = ModelTrainerArtifact(
             trained_model_file_path=self.model_trainer_config.trained_model_file_path,
             train_metric_artifact=classification_train_metric,
