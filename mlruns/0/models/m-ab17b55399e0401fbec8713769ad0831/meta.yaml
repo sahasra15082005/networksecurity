@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/sahasra%20musalikunta/Desktop/networksecurity/mlruns/0/models/m-ab17b55399e0401fbec8713769ad0831/artifacts
+creation_timestamp: 1763256165083
+experiment_id: '0'
+last_updated_timestamp: 1763256176125
+model_id: m-ab17b55399e0401fbec8713769ad0831
+model_type: null
+name: model
+source_run_id: a133add1af5c428e8a0cfafd05c7e6d9
+status: 2
+status_message: null

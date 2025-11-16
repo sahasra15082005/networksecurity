@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: NETWORKSECURITY
+Version: 0.0.1
+Author: sahasra
+Author-email: sahasra15082005@gmail.com
+Requires-Dist: python-dotenv
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: pymongo
+Requires-Dist: certifi
+Requires-Dist: pymongo[srv]
+Requires-Dist: scikit-learn
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
