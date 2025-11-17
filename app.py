@@ -8,12 +8,10 @@ from dotenv import load_dotenv
 load_dotenv()
 mongo_db_url = os.getenv("MONGODB_URL_KEY")
 print(mongo_db_url)
-
 import pymongo
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 from networksecurity.pipelines.training_pipeline import TrainingPipeline
-from networksecurity.utils.feature.feature_extractor import get_url_features
 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, File, UploadFile,Request
@@ -23,7 +21,9 @@ from starlette.responses import RedirectResponse
 import pandas as pd
 
 from networksecurity.utils.main_utils.utils import load_object
+
 from networksecurity.utils.ml_utils.model.estimator import NetworkModel
+
 
 client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
 
@@ -47,12 +47,19 @@ app.add_middleware(
 from fastapi.templating import Jinja2Templates
 templates = Jinja2Templates(directory="./templates")
 
-# ------------------------------ NEWly ADDED ROUTE ------------------------------
-@app.get("/")
-async def root():
+@app.get("/", tags=["authentication"])
+async def index():
     return RedirectResponse(url="/docs")
-# -------------------------------------------------------------------------------
 
+@app.get("/train")
+async def train_route():
+    try:
+        train_pipeline=TrainingPipeline()
+        train_pipeline.run_pipeline()
+        return Response("Training is successful")
+    except Exception as e:
+        raise NetworkSecurityException(e,sys)
+    
 @app.post("/predict")
 async def predict_route(request: Request,file: UploadFile = File(...)):
     try:
@@ -76,5 +83,6 @@ async def predict_route(request: Request,file: UploadFile = File(...)):
     except Exception as e:
             raise NetworkSecurityException(e,sys)
 
+    
 if __name__=="__main__":
     app_run(app,host="0.0.0.0",port=8000)
