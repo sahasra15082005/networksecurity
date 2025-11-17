@@ -4,9 +4,9 @@ numpy
 pymongo
 certifi
 pymongo[srv]
-scikit-learn
+scikit-learn==1.2.2
 dill
-yaml
+PyYAML
 mlflow
 dagshub
 fastapi
